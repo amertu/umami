@@ -9,12 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      NODE_ENV: production
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      APP_SECRET: ${{ secrets.APP_SECRET }}
-      HASH_SALT: ${{ secrets.HASH_SALT }}
-
     steps:
       - uses: actions/checkout@v4
 
@@ -34,6 +28,11 @@ jobs:
 
       - name: Build Umami
         run: npm run build
+        env:
+          NODE_ENV: production
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          HASH_SALT: ${{ secrets.HASH_SALT }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
